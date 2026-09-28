@@ -1,0 +1,28 @@
+name: Screenshot paste test build
+
+on:
+  push:
+    branches:
+      - fix/screenshot-paste
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: xcode-27
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Metal toolchain
+        run: xcodebuild -downloadComponent MetalToolchain
+      - name: Package test app
+        run: ./script/build_and_run.sh package
+      - name: Zip app bundle
+        run: ditto -c -k --sequesterRsrc --keepParent dist/SakuraCord.app dist/SakuraCord-test.zip
+      - name: Upload test app
+        uses: actions/upload-artifact@v7
+        with:
+          name: SakuraCord-screenshot-paste-test
+          path: dist/SakuraCord-test.zip
+          if-no-files-found: error
+          retention-days: 7
