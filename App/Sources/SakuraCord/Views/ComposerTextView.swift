@@ -740,7 +740,6 @@ final class ComposerNSTextView: NSTextView {
         return types
     }
 
-
     private var unfocusedReturnHandler: (NSEvent) -> Bool {
         { [weak self] event in
             self?.onReturn?(event) ?? false
