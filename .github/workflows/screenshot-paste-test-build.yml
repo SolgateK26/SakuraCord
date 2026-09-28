@@ -13,11 +13,11 @@ jobs:
     runs-on: xcode-27
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
       - name: Install Metal toolchain
         run: xcodebuild -downloadComponent MetalToolchain
       - name: Package test app
+        env:
+          SAKURACORD_VERSION: "0.0.0"
         run: ./script/build_and_run.sh package
       - name: Zip app bundle
         run: ditto -c -k --sequesterRsrc --keepParent dist/SakuraCord.app dist/SakuraCord-test.zip
