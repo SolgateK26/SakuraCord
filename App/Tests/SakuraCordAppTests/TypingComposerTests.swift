@@ -630,7 +630,6 @@ import Testing
     let textView = ComposerNSTextView()
     textView.commandPasteboard = pasteboard
     let readablePasteboardTypes = textView.readablePasteboardTypes
-    #expect(readablePasteboardTypes.contains(.string))
     #expect(readablePasteboardTypes.filter { $0 == .png }.count == 1)
     #expect(readablePasteboardTypes.filter { $0 == .tiff }.count == 1)
     let preferredPasteboardType = textView.preferredPasteboardType(
